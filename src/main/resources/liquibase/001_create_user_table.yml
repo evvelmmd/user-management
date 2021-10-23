@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - logicalFilePath: liquibase/001_create_user_table.yml
+  - changeSet:
+      id: create user table
+      author: Avval Mammadov
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
