@@ -1,5 +1,6 @@
 package com.usermanagement.security.config;
 
+import com.usermanagement.security.handler.EntryPointUnauthorizedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +15,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final EntryPointUnauthorizedHandler unauthorizedHandler;
+
+    public SecurityConfig(EntryPointUnauthorizedHandler unauthorizedHandler) {
+        this.unauthorizedHandler = unauthorizedHandler;
+    }
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -25,9 +32,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             throws Exception {
         http.csrf().disable()
                 //account endpoint-e authenticate etme
-                .authorizeRequests().antMatchers("/api/account").permitAll().
+                .authorizeRequests().antMatchers("/account/**").permitAll().
+                antMatchers("/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**").permitAll().
                 //digerlerini authenticate et
-                        anyRequest().authenticated().and().
+                        anyRequest().authenticated().
+                and().
+                // Authentication xetalari zamani handler(sehv login)
+                        exceptionHandling().authenticationEntryPoint(this.unauthorizedHandler).and().
                 //Tokeni STATELESS olaraq saxla
                         sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
