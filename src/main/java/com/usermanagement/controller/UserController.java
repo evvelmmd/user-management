@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/account")
 public class UserController {
@@ -26,7 +28,7 @@ public class UserController {
 
     @PostMapping(value = "/sign-up")
     @ResponseStatus(HttpStatus.CREATED)
-    public void signUp(@RequestBody UserDTO userDTO) {
+    public void signUp(@Valid @RequestBody UserDTO userDTO) {
         userService.signUp(userDTO);
     }
 
