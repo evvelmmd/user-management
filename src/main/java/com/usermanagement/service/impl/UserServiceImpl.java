@@ -1,6 +1,6 @@
 package com.usermanagement.service.impl;
 
-import com.usermanagement.dto.UserDTO;
+import com.usermanagement.dto.UserSignUpDTO;
 import com.usermanagement.entity.UserEntity;
 import com.usermanagement.repository.UserRepository;
 import com.usermanagement.service.UserService;
@@ -16,11 +16,11 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    public void signUp(UserDTO userDTO) {
-        String password = new BCryptPasswordEncoder().encode(userDTO.getPassword());
+    public void signUp(UserSignUpDTO userSignUpDTO) {
+        String password = new BCryptPasswordEncoder().encode(userSignUpDTO.getPassword());
         UserEntity userEntity = UserEntity
                 .builder()
-                .username(userDTO.getUsername())
+                .username(userSignUpDTO.getUsername())
                 .password(password)
                 .build();
 

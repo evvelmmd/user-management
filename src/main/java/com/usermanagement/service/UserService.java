@@ -1,9 +1,9 @@
 package com.usermanagement.service;
 
-import com.usermanagement.dto.UserDTO;
+import com.usermanagement.dto.UserSignUpDTO;
 
 public interface UserService {
 
-    void signUp(UserDTO userDTO);
+    void signUp(UserSignUpDTO userSignUpDTO);
 
 }

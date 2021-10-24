@@ -12,4 +12,5 @@ import java.util.List;
 public class ViolationResponse {
     private String title;
     private List<String> violations;
+    private String detail;
 }

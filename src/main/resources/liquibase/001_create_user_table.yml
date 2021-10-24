@@ -5,7 +5,7 @@ databaseChangeLog:
       author: Avval Mammadov
       changes:
         - createTable:
-            tableName: users
+            tableName: user
             columns:
               - column:
                   name: id

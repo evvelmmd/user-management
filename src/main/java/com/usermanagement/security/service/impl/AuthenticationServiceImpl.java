@@ -1,7 +1,8 @@
 package com.usermanagement.security.service.impl;
 
-import com.usermanagement.dto.UserDTO;
 import com.usermanagement.dto.UserInfo;
+import com.usermanagement.dto.UserSignInDTO;
+import com.usermanagement.exception.AuthenticationException;
 import com.usermanagement.security.service.AuthenticationService;
 import com.usermanagement.security.util.TokenUtil;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +22,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         this.tokenUtil = tokenUtil;
     }
 
-    public String createAuthenticationToken(UserDTO request) {
+    public String createAuthenticationToken(UserSignInDTO request) {
         authenticate(request.getUsername(), request.getPassword());
 
         return tokenUtil.generateToken(request.getUsername());
@@ -29,9 +30,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public UserInfo authorizeToken(String token) {
-        tokenUtil.isTokenValid(token);
+        try {
+            tokenUtil.isTokenValid(token);
 
-        return tokenUtil.getUserInfoFromToken(token);
+            return tokenUtil.getUserInfoFromToken(token);
+        } catch (Exception e) {
+            throw new AuthenticationException("Token is not correct", e);
+        }
     }
 
 

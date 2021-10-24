@@ -1,10 +1,12 @@
 package com.usermanagement.controller;
 
-import com.usermanagement.dto.UserDTO;
+import com.usermanagement.dto.UserSignInDTO;
 import com.usermanagement.security.service.AuthenticationService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 public class AuthenticationController {
@@ -15,7 +17,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/authorize")
-    public String authorize(@RequestBody UserDTO userDTO) {
-        return authenticationService.createAuthenticationToken(userDTO);
+    public String authorize(@Valid @RequestBody UserSignInDTO userSignInDTO) {
+        return authenticationService.createAuthenticationToken(userSignInDTO);
     }
 }

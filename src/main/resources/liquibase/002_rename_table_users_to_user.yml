@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - logicalFilePath: liquibase/001_create_user_table.yml
+  - changeSet:
+      id: updated user table name
+      author: Avval Mammadov
+      changes:
+        - renameTable:
+            newTableName:  users
+            oldTableName:  user
