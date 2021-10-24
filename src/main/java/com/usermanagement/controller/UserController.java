@@ -28,10 +28,4 @@ public class UserController {
         userService.signUp(userDTO);
     }
 
-    @PostMapping(value = "/authorize")
-    public String authorize(@RequestBody UserDTO userDTO) {
-        authenticationService.authenticate(userDTO.getUsername(), userDTO.getPassword());
-        return "Okey";
-    }
-
 }

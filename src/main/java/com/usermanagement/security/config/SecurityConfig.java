@@ -31,16 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http)
             throws Exception {
         http.csrf().disable()
-                //account endpoint-e authenticate etme
-                .authorizeRequests().antMatchers("/account/**").permitAll().
-                antMatchers("/v2/api-docs",
-                        "/configuration/ui",
-                        "/swagger-resources/**",
-                        "/configuration/security",
-                        "/swagger-ui.html",
-                        "/webjars/**").permitAll().
-                //digerlerini authenticate et
-                        anyRequest().authenticated().
+                //account/me endpoint-e authenticate et
+                .authorizeRequests().
+                antMatchers("/account/me").authenticated().
                 and().
                 // Authentication xetalari zamani handler(sehv login)
                         exceptionHandling().authenticationEntryPoint(this.unauthorizedHandler).and().
