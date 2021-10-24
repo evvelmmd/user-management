@@ -27,7 +27,7 @@ public class TokenUtil {
     private Long expiration;
 
     public UserInfo getUserInfoFromToken(String token) {
-        String username = getClaimFromToken(token, Claims::getSubject);
+        String username = getAllClaimsFromToken(token).get("username").toString();
         return UserInfo
                 .builder()
                 .username(username)

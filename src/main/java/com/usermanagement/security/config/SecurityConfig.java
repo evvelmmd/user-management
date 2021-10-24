@@ -30,11 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http)
             throws Exception {
-        http.csrf().disable()
-                //account/me endpoint-e authenticate et
-                .authorizeRequests().
-                antMatchers("/account/me").authenticated().
-                and().
+        http.csrf().disable().
                 // Authentication xetalari zamani handler(sehv login)
                         exceptionHandling().authenticationEntryPoint(this.unauthorizedHandler).and().
                 //Tokeni STATELESS olaraq saxla

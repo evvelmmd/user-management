@@ -1,6 +1,7 @@
 package com.usermanagement.security.service.impl;
 
 import com.usermanagement.dto.UserDTO;
+import com.usermanagement.dto.UserInfo;
 import com.usermanagement.security.service.AuthenticationService;
 import com.usermanagement.security.util.TokenUtil;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +25,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         authenticate(request.getUsername(), request.getPassword());
 
         return tokenUtil.generateToken(request.getUsername());
+    }
+
+    @Override
+    public UserInfo authorizeToken(String token) {
+        tokenUtil.isTokenValid(token);
+
+        return tokenUtil.getUserInfoFromToken(token);
     }
 
 
