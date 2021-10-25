@@ -52,7 +52,7 @@ class AuthenticationControllerTest {
     }
 
     @Test
-    void sgivenUser_whenSignIn_thenResponseToken() throws Exception {
+    void givenToken_whenSignIn_thenResponseUsername() throws Exception {
 
         //given
         UserSignUpDTO userSignUpDTO = UserSignUpDTO.builder()
