@@ -35,6 +35,7 @@ public class UserController {
 
 
     @GetMapping("/me")
+    @ResponseStatus(HttpStatus.OK)
     public UserInfo getUserInfo(@RequestHeader("X-Auth-Token") String token) {
         return authenticationService.authorizeToken(token);
     }
